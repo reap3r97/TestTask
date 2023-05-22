@@ -1,0 +1,209 @@
+{
+    "categories": [
+        {
+            "name": "Tech",
+            "courses": [
+                {
+                    "name": "Data Science",
+                    "modules": [
+                        {
+                            "name": "Hands-on",
+                            "type": "Online",
+                            "lectures": 10,
+                            "stack": "Python",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 5
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 7
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 3
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Theory",
+                            "type": "Variables",
+                            "lectures": 20,
+                            "stack": "Types",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 8
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 4
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 6
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Practical",
+                            "type": "Frameworks",
+                            "lectures": 15,
+                            "stack": "Angular",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 2
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 3
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 5
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Business",
+            "courses": [
+                {
+                    "name": "Marketing",
+                    "modules": [
+                        {
+                            "name": "Hands-on",
+                            "type": "Digital Marketing",
+                            "lectures": 30,
+                            "stack": "digital",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 9
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 7
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 6
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Theory",
+                            "type": "Online",
+                            "lectures": 24,
+                            "stack": "HR",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 5
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 3
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 4
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Theory",
+                            "type": "Online",
+                            "lectures": 15,
+                            "stack": "Supply",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 7
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 2
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 8
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "International Business",
+                    "modules": [
+                        {
+                            "name": "Hands-on",
+                            "type": "Business",
+                            "lectures": 12,
+                            "stack": "Business",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 3
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 6
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 5
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Practical",
+                            "type": "Financial",
+                            "lectures": 12,
+                            "stack": "Excel",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 4
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 9
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 2
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Theory",
+                            "type": "Branding",
+                            "lectures": 51,
+                            "stack": "Posters",
+                            "visits": [
+                                {
+                                    "month": "January",
+                                    "count": 7
+                                },
+                                {
+                                    "month": "February",
+                                    "count": 3
+                                },
+                                {
+                                    "month": "March",
+                                    "count": 6
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

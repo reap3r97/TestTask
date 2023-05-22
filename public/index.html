@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test</title>
+    <style>
+        body {
+            background-color: lightgrey;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            background-color: #f2f2f2
+        }
+
+        .green-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Range Force Test</h1>
+    <h4>Select month from dropdown to check top ten visited</h4>
+    <select id="dropdown" onchange="handleDropdownChange()">
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+    </select>
+    <ol id="moduleList"></ol>
+
+    <h3>Filter data by category</h3>
+    <select id="categoryDropdown">
+        <option value="Tech">Tech</option>
+        <option value="Business">Business</option>
+    </select>
+    <br>
+    <button class="green-button" onclick="fetchData()">Display All</button>
+
+    <table id="table">
+    </table>
+
+
+    <script>
+        let globalData;
+        let topTen;
+        const categoryDropdown = document.getElementById("categoryDropdown");
+
+        categoryDropdown.addEventListener("change", function () {
+            const selectedCategory = categoryDropdown.value;
+            filterAndUpdateTable(selectedCategory);
+        });
+
+        function fetchData() {
+            fetch('http://localhost:3000/main/listAll')
+                .then(response => response.json())
+                .then(data => {
+                    globalData = data.result;
+                    populateTable(globalData);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+
+        function fetchTopTen(selectedValue) {
+            fetch(`http://localhost:3000/main/topTen?selectedValue=${selectedValue}`)
+                .then(response => response.json())
+                .then(data => {
+                    topTen = data.topTen;
+                    populateList(topTen)
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        function handleDropdownChange() {
+            const dropdown = document.getElementById('dropdown');
+            const selectedValue = dropdown.value;
+            fetchTopTen(selectedValue);
+        }
+
+        function populateFilteredTable(data) {
+            const table = document.getElementById("table");
+            table.innerHTML = "";
+
+            const headerRow = document.createElement("tr");
+            const headers = ["Module", "Stack", "Lectures", "Type"];
+            headers.forEach((headerText) => {
+                const header = document.createElement("th");
+                header.textContent = headerText;
+                headerRow.appendChild(header);
+            });
+            table.appendChild(headerRow);
+
+            data.forEach((module) => {
+                const row = document.createElement("tr");
+
+                const moduleCell = document.createElement("td");
+                moduleCell.textContent = module.name;
+                row.appendChild(moduleCell);
+
+                const stackCell = document.createElement("td");
+                stackCell.textContent = module.stack;
+                row.appendChild(stackCell);
+
+                const lecturesCell = document.createElement("td");
+                lecturesCell.textContent = module.lectures;
+                row.appendChild(lecturesCell);
+
+                const typeCell = document.createElement("td");
+                typeCell.textContent = module.type;
+                row.appendChild(typeCell);
+
+                table.appendChild(row);
+            });
+        }
+
+        function filterAndUpdateTable(category) {
+            const filteredData = filterModulesByCategory(globalData, category);
+
+            if (filteredData) {
+                populateFilteredTable(filteredData);
+            }
+        }
+
+        function filterModulesByCategory(data, category) {
+            const filteredModules = [];
+            if (!data) {
+                alert("Please select display all first")
+
+            }
+            else {
+                data.categories.forEach((currentCategory) => {
+                    if (currentCategory.name === category) {
+                        currentCategory.courses.forEach((course) => {
+                            course.modules.forEach((module) => {
+                                filteredModules.push(module);
+                            });
+                        });
+                    }
+                });
+
+                return filteredModules;
+            }
+
+        }
+
+        function populateList(topTen) {
+            const listContainer = document.getElementById('moduleList');
+            listContainer.innerHTML = "";
+
+            topTen.forEach((module, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${module.module} (${module.visits} visits) ${module.course}, ${module.category}`;
+                listContainer.appendChild(listItem);
+            });
+        }
+
+        function populateTable(data) {
+            const table = document.getElementById('table');
+            table.innerHTML = '';
+
+            const headers = ['Category', 'Course', 'Module', 'Type', 'January', 'February', 'March'];
+            const headerRow = document.createElement('tr');
+            headers.forEach((headerText) => {
+                const headerCell = document.createElement('th');
+                headerCell.textContent = headerText;
+                headerRow.appendChild(headerCell);
+            });
+            table.appendChild(headerRow);
+
+            data.categories.forEach((category) => {
+                category.courses.forEach((course) => {
+                    course.modules.forEach((module) => {
+                        const row = document.createElement('tr');
+
+                        const categoryCell = document.createElement('td');
+                        categoryCell.textContent = category.name;
+                        row.appendChild(categoryCell);
+
+                        const courseCell = document.createElement('td');
+                        courseCell.textContent = course.name;
+                        row.appendChild(courseCell);
+
+                        const moduleCell = document.createElement('td');
+                        moduleCell.textContent = module.name;
+                        row.appendChild(moduleCell);
+
+                        const typeCell = document.createElement('td');
+                        typeCell.textContent = module.type;
+                        row.appendChild(typeCell);
+
+                        const januaryCell = document.createElement('td');
+                        januaryCell.textContent = module.visits[0].count;
+                        row.appendChild(januaryCell);
+
+                        const februaryCell = document.createElement('td');
+                        februaryCell.textContent = module.visits[1].count;
+                        row.appendChild(februaryCell);
+
+                        const marchCell = document.createElement('td');
+                        marchCell.textContent = module.visits[2].count;
+                        row.appendChild(marchCell);
+
+                        table.appendChild(row);
+                    });
+                });
+            });
+        }
+
+    </script>
+</body>
+
+</html>
